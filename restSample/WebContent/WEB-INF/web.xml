@@ -48,7 +48,7 @@
 	<!-- Spring setup  -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:applicationContext.xml</param-value>
+		<param-value>classpath:config/applicationContext.xml</param-value>
 	</context-param>
 	
 	<listener>
