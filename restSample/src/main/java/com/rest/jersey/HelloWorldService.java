@@ -51,27 +51,26 @@ public class HelloWorldService {
 
 	}
 
+	//@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@POST	
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Consumes({MediaType.APPLICATION_JSON})
 	@Path("/send")
-	public Response consumeJSON(@FormParam("json") JSONObject student ) {
-		
+	public Response consumeJSON(String student) {
+	
 		ObjectMapper mapper = new ObjectMapper();
 		Student st = null;
 		try {
-			st = (Student) mapper.readValue(student.toString(), Student.class);
+			st = (Student) mapper.readValue(student, Student.class);
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return Response.status(200).entity(st.toString()).build();
+		return Response.status(200).entity(st.getId()).build();
 	}
 	
 	public StockBo getStockBo() {
