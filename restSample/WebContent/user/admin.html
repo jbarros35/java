@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="main">
+<head>
+<meta charset="UTF-8">
+<title>Admin page</title>
+<script src="https://cdn.auth0.com/js/lock-7.1.min.js"></script>
+<!-- jQuery -->
+<script src="/restSample/js/vendor/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/restSample/js/vendor/bootstrap.min.js"></script>
+<!-- angular js -->
+<script type="text/javascript" src="/restSample/js/vendor/angular.min.js"></script>
+</head>
+<body ng-controller="LoginController as login" ng-keypress='onKeyPress($event)'>
+
+<a href="#" ng-click="login.logout()" id="logout">logout</a>
+<script type="text/javascript">
+var app = angular.module("main", []);
+
+	// angular directive for esc	
+	 app.controller('LoginController', ['$scope','$http', function($scope, $http){
+		 var lock = new Auth0Lock('APnLvOwCpXoelxX1SF97oEkCj3xhPzVR', 'jbarros.auth0.com');
+		 
+		 this.show = function() {
+				var options = {
+					      container: 'root', callbackURL: 'http://localhost:8080/restSample/callback', 
+					      responseType: 'code', authParams: {
+					    	      scope: 'openid profile'
+					   }
+				};
+				//normal display
+				lock.show(options);	
+			},
+		 this.logout = function() {
+			 console.log('log out')
+			 lock.logout({ ref: window.location.href, 
+				 returnTo: 'http://localhost:8080/restSample/logout' });
+		}
+  	}]);
+	
+</script>
+
+</body>
+</html>
